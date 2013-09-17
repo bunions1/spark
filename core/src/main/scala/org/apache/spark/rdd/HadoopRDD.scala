@@ -95,10 +95,11 @@ class HadoopRDD[K, V](
     // Register an on-task-completion callback to close the input stream.
     context.addOnCompleteCallback{ () => closeIfNeeded() }
 
-    val key: K = reader.createKey()
-    val value: V = reader.createValue()
+
 
     override def getNext() = {
+      val key: K = reader.createKey()
+      val value: V = reader.createValue()
       try {
         finished = !reader.next(key, value)
       } catch {
